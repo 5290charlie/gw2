@@ -87,7 +87,6 @@ def sync():
 def mine_match(match):
     try:
         log("Mining match: '%s'" % match.wvw_match_id)
-        now = datetime.utcnow()
 
         db.connect()
 
@@ -119,7 +118,7 @@ def mine_match(match):
                 world = worlds[color]
 
                 try:
-                    Score.get(Score.match == match, Score.world == world, Score.time > (now - timedelta(minutes=15)))
+                    Score.get(Score.match == match, Score.world == world, Score.time > (datetime.utcnow() - timedelta(minutes=15)))
                 except Score.DoesNotExist:
                     Score.create(match=match, world=world, score=score)
 
@@ -184,7 +183,7 @@ def mine_match(match):
                         if created:
                             log("Tracked new migration for guild '%s' with world: '%s'" % (guild_name, world_name))
                         else:
-                            migration.updated = now
+                            migration.updated = datetime.utcnow()
                             migration.save()
                             log("Guild: '%s' association with world: '%s' has been updated" % (guild_name, world_name))
 
@@ -194,7 +193,7 @@ def mine_match(match):
                             if created:
                                 log("Created emblem for guild [%s]%s" % (guild_tag, guild_name))
 
-                            diff = now - emblem.updated
+                            diff = datetime.utcnow() - emblem.updated
 
                             if diff.days > 0 or emblem.data == '{}':
                                 emblem.data = json.dumps(guild_details['emblem'])
@@ -203,6 +202,7 @@ def mine_match(match):
                                 log("Updated emblem data for guild: %s" % guild_name)
 
                         try:
+                            now = datetime.utcnow()
                             threshold = now - timedelta(minutes=5)
                             claim = Claim.get(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.map == map, Claim.updated > threshold)
                             claim_diff = now - claim.updated
@@ -213,6 +213,8 @@ def mine_match(match):
                         except Claim.DoesNotExist:
                             claim = Claim.create(guild=guild, match=match, objective=objective, map=map)
                             log("Tracked new claim[%d] guild=%s claimed objective=%s" % (claim.id, guild_name, objective_name))
+
+        now = datetime.utcnow()
 
         for color in ticks:
             tick = ticks[color]
@@ -234,5 +236,5 @@ def mine_match(match):
         raise
 
 def get_current_matches():
-    date_now = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
-    return Match.select().where(Match.start_time <= date_now, Match.end_time >= date_now)
+    now = datetime.utcnow()
+    return Match.select().where(Match.start_time <= now, Match.end_time >= now)
