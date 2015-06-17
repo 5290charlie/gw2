@@ -4,6 +4,8 @@ path = $(shell echo $(shell pwd) | sed 's/[\\/&]/\\\\&/g')
 all: build install
 
 build:
+	apt-get install -y python-pip
+	pip install peewee flask PyMySQL
 	python -m compileall src/
 	mv src/*.pyc bin/
 	chmod +x bin/*.pyc
