@@ -1,4 +1,4 @@
-import ConfigParser
+import os, ConfigParser
 
 class gw2Config:
     config = None
@@ -7,7 +7,10 @@ class gw2Config:
         'verbose': ['true', 'yes', 't', 'y', '1']
     }
 
-    def __init__(self, inifile='/vagrant/python/gw2/settings.ini'):
+    def __init__(self):
+        my_dir = os.path.dirname(os.path.realpath(__file__))
+        inifile = "%s/../settings.ini" % my_dir
+
         self.config = ConfigParser.ConfigParser()
         self.config.read(inifile)
 
