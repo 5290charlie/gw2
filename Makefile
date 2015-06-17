@@ -1,4 +1,4 @@
-name = gw2miner2
+name = gw2miner
 path = $(shell echo $(shell pwd) | sed 's/[\\/&]/\\\\&/g')
 
 all: build install
@@ -17,19 +17,16 @@ install:
 	update-rc.d $(name) defaults
 
 defaults:
-	@make build
-	@make install
+	@make all
 	rm -f settings.ini
 	cp defaults.ini settings.ini
 
 verbose:
-	@make build
-	@make install
+	@make all
 	sed -ie "s/verbose\s\{0,\}=\s\{0,\}False/verbose=True/g" settings.ini
 
 noverbose:
-	@make build
-	@make install
+	@make all
 	sed -ie "s/verbose\s\{0,\}=\s\{0,\}True/verbose=False/g" settings.ini
 
 clean:
