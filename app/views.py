@@ -1,8 +1,8 @@
 from flask import render_template
 from app import app
-import sys
+import os, sys
 
-sys.path.append('src')
+sys.path.append("%s/../src" % os.path.dirname(os.path.realpath(__file__)))
 
 from models import *
 import tools
