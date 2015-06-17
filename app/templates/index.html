@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+    <ul>
+        {% for match in matches %}
+            <li><a href="/match/{{ match.id }}">{{ match.wvw_match_id }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

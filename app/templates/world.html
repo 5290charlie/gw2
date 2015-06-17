@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>World {{ world.name }}</h1>
+
+    <h4>Guilds</h4>
+    <ul>
+    {% for guild in guilds %}
+        <li>
+            <a href="{{ url_for('guild', guild_id=guild.id) }}">[{{ guild.tag }}] {{ guild.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
