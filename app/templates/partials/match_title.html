@@ -1,8 +1,7 @@
 {% if match %}
-    {% set worlds = match.get_worlds %}
-    {% for world in worlds %}
-        {% set color = world.color %}
-        {% set world = world.world %}
+    {% set worlds = match.get_worlds() %}
+    {% for color in worlds %}
+        {% set world = worlds[color] %}
         <span style="color: {{ color }}">
             <a href="{{ url_for('worlds', world_id=world.id) }}">
                 {{ world.name }}

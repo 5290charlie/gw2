@@ -28,22 +28,6 @@ def active_pages():
         }
     ]
 
-@app.template_global()
-def test_iterable_dict():
-    return {
-        'one': 'this is one',
-        'two': 'this is two',
-        'three': 'this is three'
-    }
-
-@app.template_global()
-def test_iterable_list():
-    return [
-        'this is one',
-        'this is two',
-        'this is three'
-    ]
-
 @app.route('/')
 @app.route('/index')
 def index():
