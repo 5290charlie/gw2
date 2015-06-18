@@ -37,6 +37,12 @@ def index():
 @app.route('/matches')
 @app.route('/matches/<int:match_id>')
 def match(match_id=None):
+    if match_id is not None:
+        match = Match.get(Match.id==match_id)
+    else:
+        match = None
+        matches = Match.select()
+        
     return render_template('matches.html', **locals())
 
 @app.route('/world/<int:world_id>')
