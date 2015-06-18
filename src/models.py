@@ -48,6 +48,15 @@ class Match(BaseModel):
     start_time = DateTimeField(index=True)
     end_time = DateTimeField(index=True)
 
+    @staticmethod
+    def get_current():
+        now = datetime.utcnow()
+        return Match.select().where(Match.start_time <= now, Match.end_time >= now)
+
+    def is_current(self):
+        now = datetime.utcnow()
+        return (self.start_time <= now and self.end_time >= now)
+
     def get_worlds(self):
         return {
             'red': self.red_world,
