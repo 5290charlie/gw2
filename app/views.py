@@ -31,7 +31,7 @@ def active_pages():
 @app.route('/')
 @app.route('/index')
 def index():
-    matches = tools.get_current_matches()
+    matches = Match.get_current()
     return render_template('index.html', **locals())
 
 @app.route('/matches')
@@ -41,7 +41,7 @@ def matches(match_id=None):
         match = Match.get(Match.id==match_id)
     else:
         match = None
-        matches = tools.get_current_matches()
+        matches = Match.get_current()
 
     return render_template('matches.html', **locals())
 

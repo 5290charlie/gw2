@@ -29,7 +29,7 @@ class Miner(Daemon):
             if verbose:
                 tools.log("Daemon is verbose")
 
-            matches = tools.get_current_matches()
+            matches = Match.get_current()
 
             num_threads = matches.count()
             num_worlds = World.select().count()
@@ -55,7 +55,7 @@ class Miner(Daemon):
                         raise MatchNotCurrent
 
                     for match in matches:
-                        if match.end_time <= date_now:
+                        if not match.is_current():
                             raise MatchNotCurrent
 
                     responses = self.pool.imap_unordered(tools.mine_match, matches)
@@ -72,7 +72,7 @@ class Miner(Daemon):
                     #     tools.log("Job returned NOT None response! RESPONSES=%s" % responses, True)
                 except MatchNotCurrent:
                     tools.sync()
-                    matches = tools.get_current_matches()
+                    matches = Match.get_current()
                 except (TimeoutError, urllib2.URLError, ssl.SSLError):
                     tools.log("Job timed out! [timeout=%d(s), counter=%d]" % (timeout, self.timeout_count), True)
                     self.pool.terminate()

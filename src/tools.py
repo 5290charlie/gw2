@@ -97,11 +97,7 @@ def mine_match(match):
 
         match_details = api.get_wvw_match_details(match.wvw_match_id)
 
-        worlds = {
-            'red': match.red_world,
-            'blue': match.blue_world,
-            'green': match.green_world
-        }
+        worlds = match.get_worlds()
 
         ticks = {
             'red': 0,

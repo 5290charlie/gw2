@@ -76,10 +76,16 @@ class Match(BaseModel):
             'green': self.green_world
         }
 
+    def get_scores(self):
+        return Score.select().where(Score.match==self).order_by(Score.time)
+
+    def get_ticks(self):
+        return Tick.select().where(Tick.match==self).order_by(Tick.time)
+
     @staticmethod
     def get_current():
         now = datetime.utcnow()
-        return Match.select().where(Match.start_time <= now, Match.end_time >= now)
+        return Match.select().where(Match.start_time <= now, Match.end_time >= now).order_by(Match.wvw_match_id)
 
 class Objective(BaseModel):
     name = CharField(max_length=32, index=True)
@@ -90,6 +96,12 @@ class Guild(BaseModel):
     tag = CharField(max_length=16, index=True)
     name = CharField(index=True)
     world = ForeignKeyField(World, index=True)
+
+    def get_claims(self):
+        return Claim.select().where(Claim.guild==self).order_by(-Claim.updated)
+
+    def get_migrations(self):
+        return Migration.select().where(Migration.guild==self).order_by(-Migration.updated)
 
 class Emblem(BaseModel):
     data = TextField(default='{}')
