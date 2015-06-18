@@ -46,11 +46,20 @@ class Match(BaseModel):
     end_time = DateTimeField(index=True)
 
     def get_worlds(self):
-        return {
-            'red': self.red_world,
-            'blue': self.blue_world,
-            'green': self.green_world
-        }
+        return [
+            {
+                'color': 'red',
+                'world': self.red_world
+            },
+            {
+                'color': 'blue',
+                'world': self.blue_world
+            },
+            {
+                'color': 'green',
+                'world': self.green_world
+            },
+        ]
 
 class Objective(BaseModel):
     name = CharField(max_length=32, index=True)
