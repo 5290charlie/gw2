@@ -1,11 +1,33 @@
 {% extends "structure.html" %}
 {% block content %}
     {% if guild %}
-        <h1>[{{ guild.tag }}] {{ guild.name }}</h1>
+        <h1>{% include "partials/guild_name.html" %}</h1>
+
+        <h3>Claim History</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Updated</th>
+                    <th>Duration</th>
+                    <th>Map</th>
+                    <th>Objective</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for claim in guild.get_claims() %}
+                    <tr>
+                        <td>{{ claim.updated }}</td>
+                        <td>{{ claim.duration }}</td>
+                        <td>{{ claim.map.type }}</td>
+                        <td>{{ claim.objective.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% elif guilds %}
         <ul>
             {% for guild in guilds %}
-                <li><a href="{{ url_for('guilds', guild_id=guild.id) }}">[{{ guild.tag }}] {{ guild.name }}</a></li>
+                <li><a href="{{ url_for('guilds', guild_id=guild.id) }}">{% include "partials/guild_name.html" %}</a></li>
             {% endfor %}
         </ul>
     {% endif %}

@@ -40,6 +40,9 @@ class World(BaseModel):
 
         return None
 
+    def get_guilds(self):
+        return Guild.select().where(Guild.world==self).order_by(Guild.name)
+
     @staticmethod
     def get_color_index(color):
         if color in world_colors:
