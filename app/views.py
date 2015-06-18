@@ -32,7 +32,7 @@ def active_pages():
 @app.route('/index')
 def index():
     matches = tools.get_current_matches()
-    return render_template('index.html')
+    return render_template('index.html', **locals())
 
 @app.route('/matches')
 @app.route('/matches/<int:match_id>')
