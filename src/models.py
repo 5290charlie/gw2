@@ -23,6 +23,23 @@ class World(BaseModel):
     name = CharField(max_length=32, index=True, unique=True)
     region = ForeignKeyField(Region, index=True)
 
+    def get_current_match(self):
+        return Match.get_current().where(
+            (Match.red_world == self) |
+            (Match.blue_world == self) |
+            (Match.green_world == self)
+        ).get()
+
+    def get_color(self):
+        match = self.get_current_match()
+        worlds = match.get_worlds()
+
+        for color in worlds:
+            if worlds[color] == self:
+                return color
+
+        return None
+
     @staticmethod
     def get_color_index(color):
         if color in world_colors:
@@ -48,11 +65,6 @@ class Match(BaseModel):
     start_time = DateTimeField(index=True)
     end_time = DateTimeField(index=True)
 
-    @staticmethod
-    def get_current():
-        now = datetime.utcnow()
-        return Match.select().where(Match.start_time <= now, Match.end_time >= now)
-
     def is_current(self):
         now = datetime.utcnow()
         return (self.start_time <= now and self.end_time >= now)
@@ -63,6 +75,11 @@ class Match(BaseModel):
             'blue': self.blue_world,
             'green': self.green_world
         }
+
+    @staticmethod
+    def get_current():
+        now = datetime.utcnow()
+        return Match.select().where(Match.start_time <= now, Match.end_time >= now)
 
 class Objective(BaseModel):
     name = CharField(max_length=32, index=True)
