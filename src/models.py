@@ -101,7 +101,7 @@ class Guild(BaseModel):
     world = ForeignKeyField(World, index=True)
 
     def get_claims(self):
-        return Claim.select().where(Claim.guild==self).order_by(Claim.updated)
+        return Claim.select().where(Claim.guild==self).order_by(-Claim.updated)
 
     def get_migrations(self):
         return Migration.select().where(Migration.guild==self).order_by(-Migration.updated)
