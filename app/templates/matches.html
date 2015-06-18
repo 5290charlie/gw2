@@ -1,12 +1,15 @@
 {% extends "structure.html" %}
 {% block content %}
     {% if match %}
-        <h1>{{ match.wvw_match_id }}</h1>
+        {% set make_links = True %}
+        <h1>{% include "partials/match_title.html" %}</h1>
     {% elif matches %}
         <ul>
             {% for match in matches %}
                 <li>
-                    {% include "partials/match_title.html" %}
+                    <a href="{{ url_for('matches', match_id=match.id) }}">
+                        {% include "partials/match_title.html" %}
+                    </a>
                 </li>
             {% endfor %}
         </ul>

@@ -16,7 +16,7 @@ class BaseModel(Model):
 class Region(BaseModel):
     name = CharField(index=True, unique=True)
 
-    def get_words(self):
+    def get_worlds(self):
         return World.select().where(World.region==self)
 
 class World(BaseModel):
