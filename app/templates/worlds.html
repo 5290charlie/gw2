@@ -1,0 +1,13 @@
+{% extends "structure.html" %}
+{% block content %}
+    {% if world %}
+        <h1>{{ world.name }}</h1>
+    {% elif matches %}
+        <ul>
+            {% for world in worlds %}
+                <li><a href="{{ url_for('worlds', world_id=world.id) }}">{{ world.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

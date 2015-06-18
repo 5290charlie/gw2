@@ -1,0 +1,13 @@
+{% extends "structure.html" %}
+{% block content %}
+    {% if emblem %}
+        <h1>Emblem for guild: {{ emblem.guild.name }}</h1>
+    {% elif emblems %}
+        <ul>
+            {% for emblem in emblems %}
+                <li><a href="{{ url_for('emblems', emblem_id=emblem.id) }}">Emblem for guild: {{ emblem.guild.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

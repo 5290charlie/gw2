@@ -36,27 +36,44 @@ def index():
 
 @app.route('/matches')
 @app.route('/matches/<int:match_id>')
-def match(match_id=None):
+def matches(match_id=None):
     if match_id is not None:
         match = Match.get(Match.id==match_id)
     else:
         match = None
         matches = Match.select()
-        
+
     return render_template('matches.html', **locals())
 
-@app.route('/world/<int:world_id>')
-def world(world_id):
-    world = World.get(id=world_id)
-    guilds = Guild.select().where(Guild.world==world)
-    return render_template('world.html',
-                           world=world,
-                           guilds=guilds)
+@app.route('/worlds')
+@app.route('/worlds/<int:world_id>')
+def worlds(world_id=None):
+    if world_id is not None:
+        world = World.get(World.id==world_id)
+    else:
+        world = None
+        worlds = World.select()
 
-@app.route('/guild/<int:guild_id>')
-def guild(guild_id):
-    guild = Guild.get(id=guild_id)
-    claims = Claim.select().where(Claim.guild==guild)
-    return render_template('guild.html',
-                           guild=guild,
-                           claims=claims)
+    return render_template('worlds.html', **locals())
+
+@app.route('/guilds')
+@app.route('/guilds/<int:guild_id>')
+def guilds(guild_id=None):
+    if guild_id is not None:
+        guild = Guild.get(Guild.id==guild_id)
+    else:
+        guild = None
+        guilds = Guild.select()
+
+    return render_template('guilds.html', **locals())
+
+@app.route('/emblems')
+@app.route('/emblems/<int:emblem_id>')
+def emblems(emblem_id=None):
+    if emblem_id is not None:
+        emblem = Emblem.get(Emblem.id==emblem_id)
+    else:
+        emblem = None
+        emblems = Emblem.select()
+
+    return render_template('emblems.html', **locals())

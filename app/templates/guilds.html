@@ -1,0 +1,13 @@
+{% extends "structure.html" %}
+{% block content %}
+    {% if guild %}
+        <h1>[{{ guild.tag }}] {{ guild.name }}</h1>
+    {% elif guilds %}
+        <ul>
+            {% for guild in guilds %}
+                <li><a href="{{ url_for('guilds', guild_id=guild.id) }}">[{{ guild.tag }}] {{ guild.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
