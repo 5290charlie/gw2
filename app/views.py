@@ -34,11 +34,14 @@ def index():
     matches = tools.get_current_matches()
     return render_template('structure.html')
 
-@app.route('/match/<int:match_id>')
-def match(match_id):
-    match = Match.get(id=match_id)
-    return render_template('match.html',
-                           match=match)
+@app.route('/matches/<int:match_id>')
+def match(match_id=None):
+    if match_id is not None:
+        match = Match.get(id=match_id)
+    else:
+        matches = Match.select()
+
+    return render_template('matches.html', **locals())
 
 @app.route('/world/<int:world_id>')
 def world(world_id):
