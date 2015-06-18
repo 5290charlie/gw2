@@ -16,6 +16,9 @@ class BaseModel(Model):
 class Region(BaseModel):
     name = CharField(index=True, unique=True)
 
+    def get_words(self):
+        return World.select().where(World.region==self)
+
 class World(BaseModel):
     name = CharField(max_length=32, index=True, unique=True)
     region = ForeignKeyField(Region, index=True)
