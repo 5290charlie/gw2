@@ -5,7 +5,9 @@
     {% elif matches %}
         <ul>
             {% for match in matches %}
-                <li><a href="{{ url_for('matches', match_id=match.id) }}">{{ match.wvw_match_id }}</a></li>
+                <li>
+                    {% include "partials/match_title.html" %}
+                </li>
             {% endfor %}
         </ul>
     {% endif %}
