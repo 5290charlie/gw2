@@ -36,8 +36,8 @@
             <tbody>
                 {% for migration in guild.get_migrations() %}
                     <tr>
-                        <td>{{ migration.updated }}</td>
                         <td><a href="{{ url_for('worlds', world_id=migration.world.id) }}">{{ migration.world.name }}</a></td>
+                        <td>{{ migration.updated }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
