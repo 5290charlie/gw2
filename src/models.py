@@ -88,7 +88,7 @@ class Match(BaseModel):
     def get_name_for_map(self, map):
         color = map.type[:-4].lower()
 
-        if color in worlds:
+        if color in world_colors:
             return "%s Borderlands" % self.get_worlds()[color].name
         else:
             return "Eternal Battlegrounds"
