@@ -7,6 +7,27 @@ sys.path.append("%s/../src" % os.path.dirname(os.path.realpath(__file__)))
 from models import *
 import tools
 
+@app.template_global()
+def active_pages():
+    return [
+        {
+            'name' => 'Matches',
+            'href' => '/mathes'
+        },
+        {
+            'name' => 'Worlds',
+            'href' => '/worlds'
+        },
+        {
+            'name' => 'Guilds',
+            'href' => '/guilds'
+        },
+        {
+            'name' => 'Emblems',
+            'href' => '/emblems'
+        }
+    ]
+
 @app.route('/')
 @app.route('/index')
 def index():

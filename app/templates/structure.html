@@ -62,6 +62,9 @@
 
         <!-- Begin page content -->
         <div class="container">
+            {% for page in active_pages() %}
+                {{ page.name }} -> {{ page.href }}
+            {% endfor %}
             <div class="page-header">
                 <h1>Sticky footer with fixed navbar</h1>
             </div>
