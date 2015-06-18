@@ -1,23 +1,7 @@
 {% extends "structure.html" %}
 {% block content %}
     <h1>Homepage</h1>
-
-    <h4>testing iterable</h4>
-    <h5>dict:</h5>
-    <ul>
-        {% set dict = test_iterable_dict() %}
-        {% for item in dict %}
-            <li>{{ item }} = {{ dict[item] }}</li>
-        {% endfor %}
-    </ul>
-    <h5>list:</h5>
-    <ul>
-        {% set list = test_iterable_list() %}
-        {% for item in list %}
-            <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
-
+    
     <h4>Matches</h4>
     {% include 'matches.html' %}
 {% endblock %}
