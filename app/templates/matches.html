@@ -1,8 +1,15 @@
 {% extends "structure.html" %}
 {% block content %}
-    <ul>
-        {% for match in matches %}
-            <li><a href="/matches/{{ match.id }}">{{ match.wvw_match_id }}</a></li>
-        {% endfor %}
-    </ul>
+    {% if match_id is not None %}
+        {% set match = Match.get(match_id) %}
+        {{ match.wvw_match_id }}
+    {% else %}
+        {% set matches = Match.select() %}
+        <ul>
+            {% for match in matches %}
+                <li><a href="/matches/{{ match.id }}">{{ match.wvw_match_id }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 {% endblock %}

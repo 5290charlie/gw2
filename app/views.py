@@ -12,7 +12,7 @@ def active_pages():
     return [
         {
             'name': 'Matches',
-            'href': '/mathes'
+            'href': '/matches'
         },
         {
             'name': 'Worlds',
@@ -34,13 +34,9 @@ def index():
     matches = tools.get_current_matches()
     return render_template('structure.html')
 
+@app.route('/matches')
 @app.route('/matches/<int:match_id>')
 def match(match_id=None):
-    if match_id is not None:
-        match = Match.get(id=match_id)
-    else:
-        matches = Match.select()
-
     return render_template('matches.html', **locals())
 
 @app.route('/world/<int:world_id>')
