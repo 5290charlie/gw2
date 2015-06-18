@@ -11,8 +11,7 @@ import tools
 @app.route('/index')
 def index():
     matches = tools.get_current_matches()
-    return render_template('index.html',
-                           matches=matches)
+    return render_template('structure.html')
 
 @app.route('/match/<int:match_id>')
 def match(match_id):
