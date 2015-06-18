@@ -2,10 +2,15 @@
     {% set worlds = match.get_worlds() %}
     {% for color in worlds %}
         {% set world = worlds[color] %}
-        <span style="color: {{ color }}">
-            <a href="{{ url_for('worlds', world_id=world.id) }}">
-                {{ world.name }}
-            </a>
-        </span>
+
+        {% if loop.index > 1 %}
+            -vs-
+        {% endif %}
+
+        {% if make_links %}
+            <a style="color: {{ color }}" href="{{ url_for('worlds', world_id=world.id) }}">{{ world.name }}</a>
+        {% else %}
+            <span style="color: {{ color }}">{{ world.name }}</span>
+        {% endif %}
     {% endfor %}
 {% endif %}
