@@ -11,20 +11,20 @@ import tools
 def active_pages():
     return [
         {
-            'name' => 'Matches',
-            'href' => '/mathes'
+            'name': 'Matches',
+            'href': '/mathes'
         },
         {
-            'name' => 'Worlds',
-            'href' => '/worlds'
+            'name': 'Worlds',
+            'href': '/worlds'
         },
         {
-            'name' => 'Guilds',
-            'href' => '/guilds'
+            'name': 'Guilds',
+            'href': '/guilds'
         },
         {
-            'name' => 'Emblems',
-            'href' => '/emblems'
+            'name': 'Emblems',
+            'href': '/emblems'
         }
     ]
 
