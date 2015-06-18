@@ -6,7 +6,8 @@
         <ul>
             {% for match in matches %}
                 <li>
-                    {% include "partials/match_title.html" %}
+                    {{ match.wvw_match_id }}
+                    {# {% include "partials/match_title.html" %} #}
                 </li>
             {% endfor %}
         </ul>
