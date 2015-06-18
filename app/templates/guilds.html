@@ -18,7 +18,7 @@
                     <tr>
                         <td>{{ claim.updated }}</td>
                         <td>{{ claim.duration }}</td>
-                        <td>{{ claim.map.type }}</td>
+                        <td>{{ claim.match.get_map_name() }}</td>
                         <td>{{ claim.objective.name }}</td>
                     </tr>
                 {% endfor %}

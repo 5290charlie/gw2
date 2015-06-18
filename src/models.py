@@ -85,6 +85,14 @@ class Match(BaseModel):
     def get_ticks(self):
         return Tick.select().where(Tick.match==self).order_by(Tick.time)
 
+    def get_name_for_map(self, map):
+        color = map.type[:-4].lower()
+
+        if color in worlds:
+            return "%s Borderlands" % self.get_worlds()[color].name
+        else:
+            return "Eternal Battlegrounds"
+
     @staticmethod
     def get_current():
         now = datetime.utcnow()
@@ -123,6 +131,9 @@ class Claim(BaseModel):
     objective = ForeignKeyField(Objective)
     duration = IntegerField(default=0)
     updated = DateTimeField(default=datetime.utcnow())
+
+    def get_map_name(self):
+        return self.match.get_name_for_map(self.map)
 
 class Score(BaseModel):
     match = ForeignKeyField(Match)
