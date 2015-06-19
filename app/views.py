@@ -10,22 +10,10 @@ import tools
 @app.template_global()
 def active_pages():
     return [
-        {
-            'name': 'Matches',
-            'href': '/matches'
-        },
-        {
-            'name': 'Worlds',
-            'href': '/worlds'
-        },
-        {
-            'name': 'Guilds',
-            'href': '/guilds'
-        },
-        {
-            'name': 'Emblems',
-            'href': '/emblems'
-        }
+        'matches',
+        'worlds',
+        'guilds',
+        'emblems'
     ]
 
 @app.route('/')
