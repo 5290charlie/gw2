@@ -19,7 +19,12 @@ def bake_cookie(response, key, value):
 
 @app.route('/api/favorite/<class_name>/<int:id>')
 def favorite(class_name, id):
-    favorites = json.loads(request.cookies.get('favorites'))
+    fav_cookie = request.cookies.get('favorites')
+
+    if fav_cookie:
+        favorites = json.loads(fav_cookie)
+    else:
+        favorites = {}
 
     try:
         obj = eval(class_name.capitalize()).get(id=id)
