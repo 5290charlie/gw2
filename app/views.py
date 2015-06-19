@@ -44,7 +44,12 @@ def worlds(world_id=None):
         world = None
         worlds = World.select()
 
-    return render_template('worlds.html', **locals())
+    resp = make_response(render_template('worlds.html', **locals()))
+
+    if world is not None:
+        resp.set_cookie('World_visited', world_id)
+
+    return resp
 
 @app.route('/guilds')
 @app.route('/guilds/<int:guild_id>')
