@@ -1,6 +1,6 @@
-from flask import render_template, make_response
+from flask import request, jsonify, render_template, make_response
 from app import app
-import os, sys
+import os, sys, json
 
 sys.path.append("%s/../src" % os.path.dirname(os.path.realpath(__file__)))
 
