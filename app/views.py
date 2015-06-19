@@ -47,7 +47,7 @@ def worlds(world_id=None):
     resp = make_response(render_template('worlds.html', **locals()))
 
     if world is not None:
-        resp.set_cookie('World_visited', world_id)
+        resp.set_cookie('World_visited', world.name)
 
     return resp
 
