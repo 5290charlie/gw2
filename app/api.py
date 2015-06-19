@@ -32,9 +32,11 @@ def favorite(class_name, id):
         if class_name not in favorites:
             favorites[class_name] = []
 
-        favorites[class_name].append(id)
+        if id not in favorites[class_name]:
+            favorites[class_name].append(id)
 
         response['success'] = True
+        response['favorites'] = favorites
     except:
         response['errors'].append("Error initializing class: '%s' with id: %d" % (class_name, id))
 
