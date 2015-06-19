@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, make_response
 from app import app
 import os, sys
 
@@ -20,7 +20,9 @@ def active_pages():
 @app.route('/index')
 def index():
     matches = Match.get_current()
-    return render_template('index.html', **locals())
+    resp = make_response(render_template('index.html', **locals()))
+    resp.set_cookie('Test_Cookie', 'This is a cookie value')
+    return resp
 
 @app.route('/matches')
 @app.route('/matches/<int:match_id>')
