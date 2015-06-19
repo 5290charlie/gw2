@@ -7,7 +7,7 @@ sys.path.append("%s/../src" % os.path.dirname(os.path.realpath(__file__)))
 from models import *
 import tools
 
-@app.route('/api/favorite/<str:class_name>/<int:id>')
+@app.route('/api/favorite/<class_name>/<int:id>')
 def favorite(class_name, id):
     response = {
         'success': false,
