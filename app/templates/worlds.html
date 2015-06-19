@@ -2,6 +2,15 @@
 {% block content %}
     {% if world %}
         <h1>{{ world.name }}</h1>
+
+        <h3>Guilds</h3>
+        <ul>
+            {% for guild in world.get_guilds() %}
+                <li>
+                    <a href="{{ url_for('guilds', guild_id=guild.id) }}">{% include "partials/guild_name.html" %}</a>
+                </li>
+            {% endfor %}
+        </ul>
     {% elif worlds %}
         <ul>
             {% for world in worlds %}
