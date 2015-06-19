@@ -10,13 +10,13 @@ import tools
 @app.route('/api/favorite/<class_name>/<int:id>')
 def favorite(class_name, id):
     response = {
-        'success': false,
+        'success': False,
         'errors': []
     }
 
     try:
         obj = eval(class_name.capitalize()).get(id=id)
-        response['success'] = true
+        response['success'] = True
     except:
         response['errors'].append("Error initializing class: '%s' with id: %d" % (class_name, id))
 
