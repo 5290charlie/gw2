@@ -41,6 +41,7 @@ def favorite(class_name, id):
     resp = jsonify(response)
 
     if response['success']:
-        bake_cookie(resp, 'favorites', json.dumps(favorites))
+        resp.set_cookie('favorites', json.dumps(favorites))
+        # bake_cookie(resp, 'favorites', json.dumps(favorites))
 
     return resp
