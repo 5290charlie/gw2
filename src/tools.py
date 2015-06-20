@@ -4,7 +4,7 @@ from models import *
 
 verbose = config.get('verbose')
 
-logging.basicConfig(filename='/var/log/syslog', level=logging.DEBUG)
+logging.basicConfig(filename='/var/log/syslog', level=logging.WARNING)
 
 def log(msg, override=False):
     if verbose or override:
