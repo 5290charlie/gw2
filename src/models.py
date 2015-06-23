@@ -99,6 +99,7 @@ class Match(BaseModel):
         return Match.select().where(Match.start_time <= now, Match.end_time >= now).order_by(Match.wvw_match_id)
 
 class Objective(BaseModel):
+    map = ForeignKeyField(Map, index=True, null=True)
     name = CharField(max_length=32, index=True)
     points = IntegerField(default=0, index=True)
 
@@ -127,7 +128,6 @@ class Migration(BaseModel):
 class Claim(BaseModel):
     guild = ForeignKeyField(Guild)
     match = ForeignKeyField(Match)
-    map = ForeignKeyField(Map)
     objective = ForeignKeyField(Objective)
     duration = IntegerField(default=0)
     updated = DateTimeField(default=datetime.utcnow())

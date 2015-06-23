@@ -139,6 +139,10 @@ def mine_match(match):
 
                     objective = objectives[objective_details['id']]
 
+                    if objective.map != map:
+                        objective.map = map
+                        objective.save()
+
                     objective_name = objective.name.encode('utf-8')
 
                     log("Processing objective %s[%d] for match '%s'" % (objective_name, objective_details['id'], match.wvw_match_id))
@@ -200,14 +204,14 @@ def mine_match(match):
                         try:
                             now = datetime.utcnow()
                             threshold = now - timedelta(minutes=5)
-                            claim = Claim.get(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.map == map, Claim.updated > threshold)
+                            claim = Claim.get(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.updated > threshold)
                             claim_diff = now - claim.updated
                             claim.duration += claim_diff.seconds
                             claim.updated = now
                             claim.save()
                             log("Guild: %s continues to claim[%d] objective: %s" % (guild_name, claim.id, objective_name))
                         except Claim.DoesNotExist:
-                            claim = Claim.create(guild=guild, match=match, objective=objective, map=map)
+                            claim = Claim.create(guild=guild, match=match, objective=objective)
                             log("Tracked new claim[%d] guild=%s claimed objective=%s" % (claim.id, guild_name, objective_name))
 
         now = datetime.utcnow()
