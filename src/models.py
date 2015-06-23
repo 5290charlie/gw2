@@ -133,7 +133,7 @@ class Claim(BaseModel):
     updated = DateTimeField(default=datetime.utcnow())
 
     def get_map_name(self):
-        return self.match.get_name_for_map(self.map)
+        return self.match.get_name_for_map(self.objective.map)
 
 class Score(BaseModel):
     match = ForeignKeyField(Match)
