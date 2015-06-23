@@ -207,7 +207,7 @@ def mine_match(match):
                             claims = Claim.select().where(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.updated > threshold)
 
                             if claims.count() > 1:
-                                log("Found more claims for guild: %s with objective: %s ... now=%s, threshold=%s" % (guild_name, objective_name, now..strftime("%Y-%m-%d %H:%M:%S"), threshold..strftime("%Y-%m-%d %H:%M:%S")), True)
+                                log("Found more claims for guild: %s with objective: %s ... now=%s, threshold=%s" % (guild_name, objective_name, now.strftime("%Y-%m-%d %H:%M:%S"), threshold.strftime("%Y-%m-%d %H:%M:%S")), True)
                                 raise ShitsFucked
                             else:
                                 claim = Claim.get(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.updated > threshold)
