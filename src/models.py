@@ -118,19 +118,19 @@ class Guild(BaseModel):
 class Emblem(BaseModel):
     data = TextField(default='{}')
     guild = ForeignKeyField(Guild, index=True, unique=True)
-    updated = DateTimeField(default=datetime.utcnow(), index=True)
+    updated = DateTimeField(default=datetime.utcnow, index=True)
 
 class Migration(BaseModel):
     guild = ForeignKeyField(Guild)
     world = ForeignKeyField(World)
-    updated = DateTimeField(default=datetime.utcnow())
+    updated = DateTimeField(default=datetime.utcnow)
 
 class Claim(BaseModel):
     guild = ForeignKeyField(Guild)
     match = ForeignKeyField(Match)
     objective = ForeignKeyField(Objective)
     duration = IntegerField(default=0)
-    updated = DateTimeField(default=datetime.utcnow())
+    updated = DateTimeField(default=datetime.utcnow)
 
     def get_map_name(self):
         return self.match.get_name_for_map(self.objective.map)
@@ -139,16 +139,13 @@ class Score(BaseModel):
     match = ForeignKeyField(Match)
     world = ForeignKeyField(World)
     score = IntegerField(default=0)
-    time = DateTimeField(default=datetime.utcnow())
+    time = DateTimeField(default=datetime.utcnow)
 
 class Tick(BaseModel):
     match = ForeignKeyField(Match)
     world = ForeignKeyField(World)
     points = IntegerField(default=0)
-    time = DateTimeField(default=datetime.utcnow())
+    time = DateTimeField(default=datetime.utcnow)
 
 class MatchNotCurrent(Exception):
-    pass
-
-class ShitsFucked(Exception):
     pass
