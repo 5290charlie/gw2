@@ -204,12 +204,18 @@ def mine_match(match):
                         try:
                             now = datetime.utcnow()
                             threshold = now - timedelta(minutes=5)
-                            claim = Claim.get(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.updated > threshold)
-                            claim_diff = now - claim.updated
-                            claim.duration += claim_diff.seconds
-                            claim.updated = now
-                            claim.save()
-                            log("Guild: %s continues to claim[%d] objective: %s" % (guild_name, claim.id, objective_name))
+                            claims = Claim.select().where(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.updated > threshold)
+
+                            if claims.count() > 1:
+                                log("Found more claims for guild: %s with objective: %s ... now=%s, threshold=%s" % (guild_name, objective_name, now..strftime("%Y-%m-%d %H:%M:%S"), threshold..strftime("%Y-%m-%d %H:%M:%S")), True)
+                                raise ShitsFucked
+                            else:
+                                claim = Claim.get(Claim.guild == guild, Claim.match == match, Claim.objective == objective, Claim.updated > threshold)
+                                claim_diff = now - claim.updated
+                                claim.duration += claim_diff.seconds
+                                claim.updated = now
+                                claim.save()
+                                log("Guild: %s continues to claim[%d] objective: %s" % (guild_name, claim.id, objective_name))
                         except Claim.DoesNotExist:
                             claim = Claim.create(guild=guild, match=match, objective=objective)
                             log("Tracked new claim[%d] guild=%s claimed objective=%s" % (claim.id, guild_name, objective_name))
