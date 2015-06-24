@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, time, tools, logging, urllib2, ssl
+import sys, time, tools, logging, urllib3, ssl
 from multiprocessing import Pool, TimeoutError
 from daemon import Daemon
 from models import *
@@ -73,7 +73,7 @@ class Miner(Daemon):
                 except MatchNotCurrent:
                     tools.sync()
                     matches = Match.get_current()
-                except (TimeoutError, urllib2.URLError, urllib2.HTTPError, ssl.SSLError):
+                except (ApiRequestError, TimeoutError, ssl.SSLError):
                     tools.log("Job timed out! [timeout=%d(s), counter=%d]" % (timeout, self.timeout_count), True)
                     self.pool.terminate()
                     self.pool.join()

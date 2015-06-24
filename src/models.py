@@ -149,3 +149,6 @@ class Tick(BaseModel):
 
 class MatchNotCurrent(Exception):
     pass
+
+class ApiRequestError(Exception):
+    pass

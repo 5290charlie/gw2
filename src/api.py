@@ -1,5 +1,7 @@
-import logging, urllib2, json
+import logging, urllib3, json
 from syslog import syslog
+
+http = urllib3.PoolManager()
 
 def get_items():
     """ Get a list of all item ids. """
@@ -54,7 +56,13 @@ def _request(json_location, **args):
     url = 'https://api.guildwars2.com/v1/' + json_location + '?' + '&'.join(str(argument) + '=' + str(value) for argument, value in args.items())
 
     try:
-        return json.loads(urllib2.urlopen(url).read())
+        response = http.request('GET', url)
+
+        if response.status == 200:
+            return json.loads(response.data)
+        else:
+            syslog("Unknown issue with GW2 API request! Attemplted URL='%s', recieved status=%d" % (url, response.status))
+            raise ApiRequestError
     except:
         syslog("Exception raised (assuming timeout) with URL='%s'" % url)
         logging.exception("Exception making GW2 API request!")
