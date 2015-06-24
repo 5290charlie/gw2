@@ -73,7 +73,7 @@ class Miner(Daemon):
                 except MatchNotCurrent:
                     tools.sync()
                     matches = Match.get_current()
-                except (TimeoutError, urllib2.URLError, ssl.SSLError):
+                except (TimeoutError, urllib2.URLError, urllib2.HTTPError, ssl.SSLError):
                     tools.log("Job timed out! [timeout=%d(s), counter=%d]" % (timeout, self.timeout_count), True)
                     self.pool.terminate()
                     self.pool.join()
