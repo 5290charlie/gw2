@@ -62,7 +62,7 @@ def _request(json_location, **args):
             return json.loads(response.data)
         else:
             syslog("Unknown issue with GW2 API request! Attemplted URL='%s', recieved status=%d" % (url, response.status))
-            raise ApiRequestError
+            return {}
     except:
         syslog("Exception raised (assuming timeout) with URL='%s'" % url)
         logging.exception("Exception making GW2 API request!")
