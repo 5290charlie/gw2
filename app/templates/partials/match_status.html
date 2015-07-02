@@ -1,0 +1,8 @@
+{% if match %}
+    {% set worlds = match.get_worlds() %}
+    {% for color in worlds %}
+        {% set world = worlds[color] %}
+
+        <div style="background-color: {{ color }}">{{ world.name }}</div>
+    {% endfor %}
+{% endif %}

@@ -1,17 +1,19 @@
 {% extends "structure.html" %}
 {% block content %}
-    {% if match %}
-        {% set make_links = True %}
-        <h1>{% include "partials/match_title.html" %}</h1>
-    {% elif matches %}
-        <ul>
-            {% for match in matches %}
-                <li>
-                    <a href="{{ url_for('matches', match_id=match.id) }}">
-                        {% include "partials/match_title.html" %}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <section class="matches">
+        {% if match %}
+            {% set make_links = True %}
+            <h1>{% include "partials/match_title.html" %}</h1>
+        {% elif matches %}
+            <ul>
+                {% for match in matches %}
+                    <li>
+                        <a href="{{ url_for('matches', match_id=match.id) }}">
+                            {% include "partials/match_status.html" %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
 {% endblock %}
